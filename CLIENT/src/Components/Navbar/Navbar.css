@@ -1,0 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+.container{
+    background-color: rgb(32, 139, 123) !important;
+    position: sticky !important;
+    position: fixed !important;
+
+}
