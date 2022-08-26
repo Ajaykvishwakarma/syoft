@@ -199,7 +199,7 @@ export const NoticeBoard = () => {
                 : 
                 <div>
                         {dataObj?.products?.map((el) => (
-                        <div className={style.feeds}>
+                        <div className={style.feeds} key={el._id}>
                             <div>
                               <div>
                              <h5 style={{marginTop:"10px"}}>Inventory Count : {el.inventory_count}</h5>
