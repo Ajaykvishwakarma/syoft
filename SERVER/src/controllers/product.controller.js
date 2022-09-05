@@ -1,9 +1,8 @@
 const { Router } = require("express")
 const { auth } = require('../middleware/auth');
-
 const Product = require('../models/product.model');
 
-const router = Router()
+const router = Router();
 
 router.post('/product', auth,  async (req, res) => {
     try{
@@ -52,7 +51,17 @@ router.patch("/product/:id", auth, async (req, res) => {
   
 });
 
+
+// https://syofts.herokuapp.com/products?q=filter&base=campas     filter by campus
+// https://syofts.herokuapp.com/products?q=sort&sort=1            accending order
+// https://syofts.herokuapp.com/products?q=search&block=nike     search the products name
+
+
+
+
+
 router.get('/products', auth,  async(req, res) => {
+
     try{
         const page = req.query.page || 1
         const limit = req.query.limit || 10
@@ -67,8 +76,8 @@ router.get('/products', auth,  async(req, res) => {
             }
             else
                 {
-                    products = await Product.find({block : req.query.block}).skip((page - 1) * limit).limit(limit).lean().exec()
-                    const totalDocs = await Product.find({block : req.query.block}).countDocuments()
+                    products = await Product.find({name : req.query.block}).skip((page - 1) * limit).limit(limit).lean().exec()
+                    const totalDocs = await Product.find({name : req.query.block}).countDocuments()
                     totolPages = (Math.ceil(totalDocs/limit))
                 }
         }
