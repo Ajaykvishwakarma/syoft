@@ -23,8 +23,10 @@
     width: 80% !important;
     padding: 10px;
     overflow-y: scroll;
-    max-height: 350px;
+    min-height: 550px;
+    max-height: 550px;
     margin-bottom: 50px ;
+    /* border: 1px solid red; */
 }
 
 .feeds{
@@ -101,3 +103,49 @@
     margin-top: 100px;
     text-align: center;
 }
+
+
+.pagination {
+    display: inline-block;
+    
+    margin-top: 30px !important;
+    align-items: center !important;
+    /* border: 1px solid red; */
+  }
+  
+  .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    
+  }
+  
+  .pagination a.active {
+    background-color: #6b8e85;;
+    color: white;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #208b7b; 
+    border-radius: 0px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #026052; 
+  }

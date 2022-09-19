@@ -23,11 +23,11 @@ const axios = require("axios");
 
 export const ProductEdit = () => {
 
-    const [name, setName] = useState("")
-    const [price, setPrice] = useState("")
-    const [description, setDescription] = useState("");
+    const [name1, setName1] = useState("")
+    const [price1, setPrice1] = useState("")
+    const [description1, setDescription1] = useState("");
     const [count, setCount]  = useState(0);
-    const [data, setData] = useState([])
+    const [data, setData] = useState({})
     const  { id } = useParams();
 
 
@@ -55,29 +55,29 @@ export const ProductEdit = () => {
 
             axios.get(`${BaseUrl}/product/${id}`, config).then((res) => {
                 setData(res.data);
+                
             }).catch(err => {
           alert(err.message)
           })
     }
 
-    console.log(name, price, description, count)
-
-
+    // console.log(name, price, description, count)
     const handleSubmit = async () =>  {
-        if(name.length !== 0 && price.length !== 0 ) {
+        if(name1.length !== 0 && price1.length !== 0 ) {
           const config = {
             headers: { Authorization: `Bearer ${token}` }
           };
           const res1 = await axios.patch(`${BaseUrl}/product/${id}`, {
-            name : name,
-            price : price,
-            description : description,
+            name : name1,
+            price : price1,
+            description : description1,
             inventory_count : count,
       
           }, config)
           .then((res) => {  
             let url = `${BaseUrl}/products`
             alert("Success!");
+            
           }).catch(err => {
           alert(err.message)
           })
@@ -88,6 +88,7 @@ export const ProductEdit = () => {
         
       }
 
+    
     return (
         <div style={{marginTop:"100px"}}>
              <Container component="main" maxWidth="xs" style={{marginBottom:"20px"}}>
@@ -110,13 +111,15 @@ export const ProductEdit = () => {
                     <TextField
                       required
                       fullWidth
+                      
                       name="name"
                       label="Product Name"
                       type="name"
                       id="name"
-                      defaultValue={data.name}
+                      defaultValue={``}
+                      // defaultValue={data.name}
                       onChange={(e) => {
-                        setName(e.target.value)
+                        setName1(e.target.value)
                       }}
                       autoComplete="name"
                     />
@@ -131,7 +134,7 @@ export const ProductEdit = () => {
                       defaultValue={data.price}
                       label="Price"
                       onChange={(e) => {
-                        setPrice(e.target.value)
+                        setPrice1(e.target.value)
                       }}
                       autoFocus
                     />
@@ -169,7 +172,7 @@ export const ProductEdit = () => {
                       defaultValue={data.description}
                       autoComplete="description"
                       onChange={(e) => {
-                        setDescription(e.target.value)
+                        setDescription1(e.target.value)
                       }}
                     />
                   </Grid>

@@ -18,6 +18,9 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
+import EditIcon from '@mui/icons-material/Edit';
+import Tooltip from '@mui/material/Tooltip';
+import Pagination from '@mui/material/Pagination';
 const axios = require("axios");
 
 export const NoticeBoard = () => {
@@ -33,7 +36,7 @@ export const NoticeBoard = () => {
     const token1 = tokenStr ? JSON.parse(tokenStr) : navigate('/signin')
     const token = JSON.parse(sessionStorage.getItem('token'))
     const user = JSON.parse(localStorage.getItem('user'))
-
+    const [currPage, setCurrPage] = useState(1)
 
 
     const BaseUrl = `https://syofts.herokuapp.com`;
@@ -84,6 +87,12 @@ export const NoticeBoard = () => {
       }
 
   }
+
+  async function pageChange(page) {
+    setCurrPage(page)
+    let url = `${BaseUrl}/products?page=${page}`
+    dispatch(fetchData(url))
+}
 
 
 
@@ -210,7 +219,8 @@ export const NoticeBoard = () => {
             </Container>
               </div>
 
-              { user?.role == "admin" || user?.role == "manager" ? <div className={style.post_controller}>
+              { user?.role == "admin" || user?.role == "manager" ? <>
+              <div className={style.post_controller}>
 
               {/* Loading  */}
 
@@ -222,14 +232,20 @@ export const NoticeBoard = () => {
                 : 
                 <div>
                         {dataObj?.products?.map((el) => (
-                       <Link to={`/product/${el._id}`}  key={el._id} className={style.redirection_link}> 
-                       <div className={style.feeds}>
+                       <div className={style.feeds}  key={el._id}>
                             <div>
                               <div>
                              <h5 style={{marginTop:"10px"}}>Inventory Count : {el.inventory_count}</h5>
                               </div>
                             <div>
-                            <Button style={{margin:"auto"}}  onClick={() => handleDelete(el._id)}>
+                            <Tooltip title="Click To Edit">
+                              <Button style={{margin:"auto", padding: "2px"}}>
+                              <Link to={`/product/${el._id}`}  className={style.redirection_link}>
+                                <EditIcon style={{height: "20", marginTop: "5px"}}/>
+                                </Link>
+                              </Button>
+                              </Tooltip>
+                              <Button style={{margin:"auto"}}  onClick={() => handleDelete(el._id)}>
                                   <CloseIcon />
                               </Button>
                             </div>
@@ -248,13 +264,20 @@ export const NoticeBoard = () => {
                             </div>
 
                           </div>
-                          </Link>
+                          
                         ))}
                   </div>
+                  
             }
+             
               </div>
+              <div className={style.pagination}>
+                 <Pagination defaultPage={currPage} count={dataObj.totalPages?.length} onChange={(e, value) => {pageChange(value)}}/>
+             </div>
+             </>
               : ""
           }
+         
         </div>
     )
 }
