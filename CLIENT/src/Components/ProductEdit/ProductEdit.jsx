@@ -60,7 +60,7 @@ export const ProductEdit = () => {
           })
     }
 
-    
+    console.log(name, price, description, count)
 
 
     const handleSubmit = async () =>  {
@@ -68,7 +68,7 @@ export const ProductEdit = () => {
           const config = {
             headers: { Authorization: `Bearer ${token}` }
           };
-          const res1 = await axios.patch(`${BaseUrl}/product/id`, {
+          const res1 = await axios.patch(`${BaseUrl}/product/${id}`, {
             name : name,
             price : price,
             description : description,
@@ -77,7 +77,7 @@ export const ProductEdit = () => {
           }, config)
           .then((res) => {  
             let url = `${BaseUrl}/products`
-            alert("Success!")
+            alert("Success!");
           }).catch(err => {
           alert(err.message)
           })
@@ -114,6 +114,7 @@ export const ProductEdit = () => {
                       label="Product Name"
                       type="name"
                       id="name"
+                      defaultValue={data.name}
                       onChange={(e) => {
                         setName(e.target.value)
                       }}
@@ -127,6 +128,7 @@ export const ProductEdit = () => {
                       required
                       fullWidth
                       id="price"
+                      defaultValue={data.price}
                       label="Price"
                       onChange={(e) => {
                         setPrice(e.target.value)
@@ -139,7 +141,7 @@ export const ProductEdit = () => {
                   <div>
                                 
                       <ButtonGroup>
-                      <h3 style={{ marginRight:"20px"}}>{count}</h3>
+                      <h3 style={{ marginRight:"20px"}} >{count}</h3>
                       <Button
                           aria-label="reduce"
                           onClick={() => {setCount(count-1)}}
@@ -164,6 +166,7 @@ export const ProductEdit = () => {
                       id="description"
                       label="Description"
                       name="description"
+                      defaultValue={data.description}
                       autoComplete="description"
                       onChange={(e) => {
                         setDescription(e.target.value)
@@ -175,7 +178,7 @@ export const ProductEdit = () => {
                   
                             
                   <Button
-                  className={style.btn}
+                    className={style.btn}
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}

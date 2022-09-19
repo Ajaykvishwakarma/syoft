@@ -222,7 +222,7 @@ export const NoticeBoard = () => {
                 : 
                 <div>
                         {dataObj?.products?.map((el) => (
-                       <Link to={`/product/${el._id}`}  key={el._id} style={{color:"black"}}> 
+                       <Link to={`/product/${el._id}`}  key={el._id} className={style.redirection_link}> 
                        <div className={style.feeds}>
                             <div>
                               <div>
